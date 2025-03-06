@@ -9,9 +9,16 @@
 
 .xb-item--title {
     color: black;
+    margin-top: 8px;
+    margin-bottom: 8px;
 }
 
 .xb-item--content {
     color: white;
 }
 
+.process-item {
+    background: linear-gradient(135deg, #010315, #150d50);
+    color: white;
+    padding: 20px; /* Adjust padding for better spacing */
+}
