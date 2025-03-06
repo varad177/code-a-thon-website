@@ -12585,15 +12585,23 @@ body .mfp-wrap .mfp-container .mfp-content .mfp-close:hover::before, body .mfp-w
       left: 0;
       right: 0; }
     .hero-style-three .xb-shape .shape--two {
-      bottom: 11%;
+      bottom: 13%;
       left: 40%;
       transform: translateX(-50%); }
       @media (max-width: 991px) {
         .hero-style-three .xb-shape .shape--two {
-          bottom: 2%;
-      left: 12%; } }
-      .hero-style-three .xb-shape .shape--two img {
-        animation: updown-3 5s linear infinite; }
+          bottom: 8%;
+          left: 31%; } }
+          @media (max-width: 450px) {
+            .hero-style-three .xb-shape .shape--two {
+              bottom: 5%;
+              left: 23%;
+            
+            } 
+            .hero-style-three .xb-shape .shape--two img {
+              width: 200px;
+             }}
+    
     .hero-style-three .xb-shape .shape--three {
       top: 5%;
       left: 0; }
@@ -15214,6 +15222,11 @@ body .mfp-wrap .mfp-container .mfp-content .mfp-close:hover::before, body .mfp-w
 #coin-spin{
 
   animation: spinY 5s linear infinite; /* Adjust duration as needed */
+  box-shadow: 
+  0 4px 10px rgba(74, 0, 224, 0.4), 
+  0 10px 30px rgba(142, 45, 226, 0.3), 
+  0 15px 40px rgba(74, 0, 224, 0.2);
+  border-radius: 50%;
 }
 
 @keyframes spinY {
@@ -15243,5 +15256,8 @@ body .mfp-wrap .mfp-container .mfp-content .mfp-close:hover::before, body .mfp-w
   .domain-outer{
   flex-direction: column;
   }
-  
+  .csilogo img{
+    width: 58px;
+    border-radius: 50%;
+  }
 }
