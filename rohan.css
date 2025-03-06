@@ -1,0 +1,12 @@
+.process.pt-140.pb-40.pos-rel {
+    background: linear-gradient(45deg, #010315, #000216); /* Purple Gradient */
+    color: white; /* White Text */
+    padding-top: 140px; /* Keep existing padding */
+    padding-bottom: 40px; /* Keep existing padding */
+    position: relative; /* Keep existing positioning */
+    border-radius: 10px; /* Optional: Rounded corners */
+}
+
+.xb-item--title {
+    color: black;
+}
