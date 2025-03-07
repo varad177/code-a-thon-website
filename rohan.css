@@ -18,3 +18,68 @@
 }
 
 
+    .about {
+        /* padding-top: 60px;
+        padding-bottom: 100px; */
+    }
+    
+    /* Reduce padding for screens smaller than 768px */
+    @media (max-width: 768px) {
+        .about {
+            padding-top: 8px;
+            padding-bottom: 8px;
+        }
+    }
+    
+
+    .cs-feature {
+        padding-top: 80px;
+    }
+    
+    /* Reduce padding for screens smaller than 768px */
+    @media (max-width: 768px) {
+        .cs-feature {
+            padding-top: 15px;
+        }
+    }
+
+    .process {
+        /* padding-top: 140px;
+        padding-bottom: 40px;
+    }
+    
+    /* Reduce padding for screens smaller than 768px */
+    @media (max-width: 768px) {
+        .process {
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+    }
+     */
+    
+
+     .row {
+        margin-top: 40px; /* Default for larger screens */
+    }
+    
+    /* Reduce margin-top for screens smaller than 768px */
+    @media (max-width: 768px) {
+        .row {
+            margin-top: 10px;
+        }
+    }
+    
+
+    @media (max-width: 768px) { /* Targets tablets and smaller devices */
+        .process {
+            padding-top: 20px !important; /* Force override */
+        }
+    
+        .about {
+            padding-bottom: 20px !important; /* Force override */
+        }
+    }
+    
+
+
+
