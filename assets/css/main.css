@@ -7848,6 +7848,7 @@ body[data-aos-easing=ease] [data-aos] {
       visibility: visible; }
   .indus-item .xb-title {
     font-size: 28px;
+   
     margin-top: 35px;
     display: inline-block; }
     @media (max-width: 1199px) {
@@ -9693,7 +9694,7 @@ body[data-aos-easing=ease] [data-aos] {
   -o-border-radius: 20px; }
   @media (max-width: 1199px) {
     .cs-contact-wrap {
-      padding: 60px 30px; } }
+      padding: 5px; } }
   .cs-contact-wrap::before {
     position: absolute;
     top: 0;
@@ -10150,28 +10151,38 @@ body[data-aos-easing=ease] [data-aos] {
 .award-item {
   z-index: 1;
   margin-top: 20px;
+
   text-align: center;
   position: relative;
   min-height: 392px;
   padding: 50px 25px 30px; }
+
+.xb-img h2{
+  color: gold;
+}
   .award-item::before {
     position: absolute;
+    border-radius: 20px;
     content: '';
     top: 0;
     left: 0;
     z-index: -1;
     width: 100%;
+
     height: 100%;
-    background-image: url(../img/bg/award-bg01.png);
+    box-shadow: rgba(74, 0, 224, 0.4) 0px 4px 10px, rgba(142, 45, 226, 0.3) 0px 10px 30px, rgba(74, 0, 224, 0.2) 0px 15px 40px;
+    /* background-image: url(../img/bg/award-bg01.png); */
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain; }
   .award-item .xb-img {
     -webkit-transition: 0.8s;
+    
     -o-transition: 0.8s;
     transition: 0.8s; }
   .award-item .xb-title {
     font-size: 18px;
+    color: #AE6DFE !important;
     font-weight: 500;
     margin-top: 12px;
     display: inline-block; }
@@ -12513,7 +12524,7 @@ body .mfp-wrap .mfp-container .mfp-content .mfp-close:hover::before, body .mfp-w
         font-size: 92px; } }
     @media (max-width: 767px) {
       .hero-style-three .xb-hero .xb-item--title {
-        font-size: 50px;
+        font-size: 42px;
         letter-spacing: 2px; } }
   .hero-style-three .xb-hero .xb-item--content {
     font-weight: 500;
