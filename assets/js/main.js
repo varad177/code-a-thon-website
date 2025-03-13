@@ -121,6 +121,12 @@
 		$('body').removeClass('body-overflow');
 	});
 
+	$('.xb-header-menu li > a').on('click', function () {
+		$('.xb-header-menu').removeClass('active');
+		$('body').removeClass('body-overflow');
+	});
+	
+
 	/*------------------------------------------
 	= nice select
 	-------------------------------------------*/

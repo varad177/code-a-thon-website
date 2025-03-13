@@ -32,10 +32,12 @@
 
 /* reset css start */
 :root {
-  scroll-behavior: auto; }
+  scroll-behavior: smooth; }
 
 html {
   scroll-behavior: smooth; }
+
+
 
 body {
   padding: 0;
@@ -15243,4 +15245,10 @@ body .mfp-wrap .mfp-container .mfp-content .mfp-close:hover::before, body .mfp-w
 .about{
 
   padding-top: 15rem;
+}
+
+@media(max-width:768px){
+  #fbtn{
+    margin-top: 20px;
+  }
 }
