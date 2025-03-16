@@ -12518,7 +12518,8 @@ body .mfp-wrap .mfp-container .mfp-content .mfp-close:hover::before, body .mfp-w
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent; 
-    animation: subtleGlow 10s infinite alternate ease-in-out, floatEffect 8s infinite ease-in-out;}
+    animation: subtleGlow 10s infinite alternate ease-in-out, floatEffect 8s infinite ease-in-out;
+  }
 
 
     @keyframes subtleGlow {
