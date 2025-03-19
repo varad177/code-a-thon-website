@@ -285,12 +285,14 @@
         border-radius: 50%;
       }
 
+      /* Fixed user photo positioning with percentage-based calculations */
       .user-photo {
         position: absolute;
-        top: 80px;
-        left: 20px;
-        width: 100px;
-        height: 100px;
+        top: 13%; /* Percentage of card height instead of fixed pixels */
+        left: 5%;
+        width: 26%; /* Percentage of card width for consistency */
+        height: 0;
+        padding-bottom: 26%; /* Keep it a circle with same width-to-height ratio */
         border-radius: 50%;
         overflow: hidden;
         z-index: 2;
@@ -302,20 +304,31 @@
       }
 
       .user-photo img {
+        position: absolute;
+        top: 0;
+        left: 0;
         width: 100%;
         height: 100%;
-        object-fit: cover;
+      
       }
 
       .user-photo .placeholder {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         font-size: 30px;
         color: rgba(255, 255, 255, 0.3);
       }
 
       .user-info {
         position: absolute;
-        bottom: 120px;
-        left: 20px;
+        bottom: 20%; /* Percentage-based positioning */
+        left: 5%;
         z-index: 2;
         width: 90%;
       }
@@ -346,21 +359,17 @@
         color: rgba(255, 255, 255, 0.7);
       }
 
-      /* Fixed side text that will display correctly in the PNG */
-      .vertical-text-container {
+      .maintext {
+        font-size: 22px;
         position: absolute;
-        right: 0;
-        top: 0;
-        height: 100%;
-        width: 60px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        overflow: visible;
+        top: 40%;
+        left: 6%;
         z-index: 2;
       }
       
-
+      .maintext span {
+        color: var(--gradient-end);
+      }
 
       /* Responsive */
       @media (max-width: 992px) {
@@ -385,6 +394,14 @@
 
         .user-title {
           font-size: 1.2rem;
+        }
+        
+        /* Ensure the user photo scales correctly on small screens */
+        .user-photo {
+          top: 13%;
+          left: 5%;
+          width: 30%;
+          padding-bottom: 30%;
         }
       }
 
@@ -439,16 +456,6 @@
       .inn {
         color: var(--gradient-end) !important;
       }
-
-      .maintext{
-        font-size: 22px;
-        position: absolute;
-        top: 50%;
-        left: 6%;
-      }
-      .maintext span{
-        color: var(--gradient-end);
-      }
     </style>
   </head>
   <body>
@@ -493,7 +500,7 @@
             </div>
           </div>
 
-          <h2 class="maintext">Ready For <span>CODE A THON</span></h2>
+          <h2 class="maintext">Ready For <br> <span style="font-size: 32px;">CODE A THON</span></h2>
 
           <div class="user-info">
             <div class="user-name" id="preview-name">Your Name</div>
@@ -501,9 +508,6 @@
           </div>
 
           <div class="website-url">www.code-a-thon-2025.vercel.app</div>
-
-          <!-- Using SVG for the vertical text instead of CSS transforms -->
-         
         </div>
       </div>
 
@@ -571,8 +575,6 @@
         const shareInstagram = document.getElementById("share-instagram");
         const shareWhatsApp = document.getElementById("share-whatsapp");
         const card = document.querySelector(".card");
-        
-        // Properly position the vertical text SVG for rendering
 
         // Handle photo upload
         photoInput.addEventListener("change", function (e) {
@@ -597,33 +599,59 @@
           previewTitle.textContent = this.value;
         });
 
-        // Function to create an image from the card
         function createCardImage() {
-          return new Promise((resolve) => {
-            // Important: Make sure to capture the entire card with all elements
-            html2canvas(card, {
-              backgroundColor: null,
-              useCORS: true,
-              scale: 2, // Higher quality
-              allowTaint: true,
-              logging: true,
-        
-            }).then((canvas) => {
-              const imgData = canvas.toDataURL("image/png");
-              resolve(imgData);
-            });
-          });
-        }
-
+  return new Promise((resolve) => {
+    // Create a visible clone in a position that won't affect the layout
+    const cardClone = card.cloneNode(true);
+    cardClone.style.position = 'fixed';
+    cardClone.style.top = '0';
+    cardClone.style.left = '0';
+    cardClone.style.width = '380px';
+    cardClone.style.height = '600px';
+    cardClone.style.zIndex = '-9999';
+    cardClone.style.visibility = 'visible'; // Make it visible but off-screen
+    cardClone.style.opacity = '1';
+    document.body.appendChild(cardClone);
+    
+    // Give more time for resources to load
+    setTimeout(() => {
+      html2canvas(cardClone, {
+        backgroundColor: null,
+        useCORS: true,
+        scale: 2,
+        allowTaint: true,
+        logging: true, // Enable logging to help debug
+        width: 380,
+        height: 600
+      }).then((canvas) => {
+        const imgData = canvas.toDataURL("image/png");
+        document.body.removeChild(cardClone);
+        resolve(imgData);
+      }).catch(err => {
+        console.error("Error in html2canvas:", err);
+        document.body.removeChild(cardClone);
+        resolve(null);
+      });
+    }, 500); // Increased timeout to 500ms
+  });
+}
         // Generate and download image
         generateBtn.addEventListener("click", async function () {
           const imgData = await createCardImage();
-          downloadImage(imgData, "code-a-thon-card.png");
+          if (imgData) {
+            downloadImage(imgData, "code-a-thon-card.png");
+          } else {
+            alert("There was an error generating your card. Please try again.");
+          }
         });
 
         // Share to Instagram
         shareInstagram.addEventListener("click", async function () {
           const imgData = await createCardImage();
+          if (!imgData) {
+            alert("There was an error generating your card. Please try again.");
+            return;
+          }
 
           if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
             // On mobile, try to open Instagram
@@ -663,6 +691,10 @@
         // Share to WhatsApp
         shareWhatsApp.addEventListener("click", async function () {
           const imgData = await createCardImage();
+          if (!imgData) {
+            alert("There was an error generating your card. Please try again.");
+            return;
+          }
 
           // Try to use Web Share API first (mobile)
           if (navigator.share) {
