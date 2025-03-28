@@ -309,7 +309,6 @@
         left: 0;
         width: 100%;
         height: 100%;
-      
       }
 
       .user-photo .placeholder {
@@ -366,7 +365,7 @@
         left: 6%;
         z-index: 2;
       }
-      
+
       .maintext span {
         color: var(--gradient-end);
       }
@@ -395,7 +394,7 @@
         .user-title {
           font-size: 1.2rem;
         }
-        
+
         /* Ensure the user photo scales correctly on small screens */
         .user-photo {
           top: 13%;
@@ -500,7 +499,10 @@
             </div>
           </div>
 
-          <h2 class="maintext">Ready For <br> <span style="font-size: 32px;">CODE A THON</span></h2>
+          <h2 class="maintext">
+            Ready For <br />
+            <span style="font-size: 32px">CODE A THON</span>
+          </h2>
 
           <div class="user-info">
             <div class="user-name" id="preview-name">Your Name</div>
@@ -549,7 +551,7 @@
             Download as PNG
           </button>
 
-          <div style="display: none;" class="share-options">
+          <div style="display: none" class="share-options">
             <button id="share-instagram" class="share-btn share-btn-instagram">
               <i class="fab fa-instagram"></i> Instagram
             </button>
@@ -600,41 +602,43 @@
         });
 
         function createCardImage() {
-  return new Promise((resolve) => {
-    // Create a visible clone in a position that won't affect the layout
-    const cardClone = card.cloneNode(true);
-    cardClone.style.position = 'fixed';
-    cardClone.style.top = '0';
-    cardClone.style.left = '0';
-    cardClone.style.width = '380px';
-    cardClone.style.height = '600px';
-    cardClone.style.zIndex = '-9999';
-    cardClone.style.visibility = 'visible'; // Make it visible but off-screen
-    cardClone.style.opacity = '1';
-    document.body.appendChild(cardClone);
-    
-    // Give more time for resources to load
-    setTimeout(() => {
-      html2canvas(cardClone, {
-        backgroundColor: null,
-        useCORS: true,
-        scale: 2,
-        allowTaint: true,
-        logging: true, // Enable logging to help debug
-        width: 380,
-        height: 600
-      }).then((canvas) => {
-        const imgData = canvas.toDataURL("image/png");
-        document.body.removeChild(cardClone);
-        resolve(imgData);
-      }).catch(err => {
-        console.error("Error in html2canvas:", err);
-        document.body.removeChild(cardClone);
-        resolve(null);
-      });
-    }, 500); // Increased timeout to 500ms
-  });
-}
+          return new Promise((resolve) => {
+            // Create a visible clone in a position that won't affect the layout
+            const cardClone = card.cloneNode(true);
+            cardClone.style.position = "fixed";
+            cardClone.style.top = "0";
+            cardClone.style.left = "0";
+            cardClone.style.width = "380px";
+            cardClone.style.height = "600px";
+            cardClone.style.zIndex = "-9999";
+            cardClone.style.visibility = "visible"; // Make it visible but off-screen
+            cardClone.style.opacity = "1";
+            document.body.appendChild(cardClone);
+
+            // Give more time for resources to load
+            setTimeout(() => {
+              html2canvas(cardClone, {
+                backgroundColor: null,
+                useCORS: true,
+                scale: 2,
+                allowTaint: true,
+                logging: true, // Enable logging to help debug
+                width: 380,
+                height: 600,
+              })
+                .then((canvas) => {
+                  const imgData = canvas.toDataURL("image/png");
+                  document.body.removeChild(cardClone);
+                  resolve(imgData);
+                })
+                .catch((err) => {
+                  console.error("Error in html2canvas:", err);
+                  document.body.removeChild(cardClone);
+                  resolve(null);
+                });
+            }, 500); // Increased timeout to 500ms
+          });
+        }
         // Generate and download image
         generateBtn.addEventListener("click", async function () {
           const imgData = await createCardImage();
@@ -734,6 +738,76 @@
           link.click();
           document.body.removeChild(link);
         }
+      });
+    </script>
+
+    <script>
+      // Script to restrict page access on small screens
+      document.addEventListener("DOMContentLoaded", function () {
+        // Create elements for the overlay message
+        const overlay = document.createElement("div");
+        const messageBox = document.createElement("div");
+        const message = document.createElement("p");
+        const icon = document.createElement("i");
+
+        // Set up the overlay styling
+        overlay.style.position = "fixed";
+        overlay.style.top = "0";
+        overlay.style.left = "0";
+        overlay.style.width = "100%";
+        overlay.style.height = "100%";
+        overlay.style.backgroundColor = "#050810";
+        overlay.style.zIndex = "9999";
+        overlay.style.display = "none";
+        overlay.style.justifyContent = "center";
+        overlay.style.alignItems = "center";
+
+        // Set up the message box styling
+        messageBox.style.width = "80%";
+        messageBox.style.maxWidth = "500px";
+        messageBox.style.padding = "30px";
+        messageBox.style.backgroundColor = "rgba(255, 255, 255, 0.05)";
+        messageBox.style.borderRadius = "10px";
+        messageBox.style.textAlign = "center";
+        messageBox.style.backdropFilter = "blur(10px)";
+        messageBox.style.boxShadow = "0 10px 30px rgba(0, 0, 0, 0.3)";
+
+        // Set up the laptop icon
+        icon.className = "fas fa-laptop fa-4x";
+        icon.style.marginBottom = "20px";
+        icon.style.color = "#4361ee";
+
+        // Set up the message text
+        message.innerHTML =
+          "CODE-A-THON 2025 Card Generator <br><br> This application is designed for larger screens. <br>Please access it from a laptop or desktop computer.";
+        message.style.color = "#f8f9fa";
+        message.style.fontSize = "18px";
+        message.style.lineHeight = "1.6";
+
+        // Assemble the elements
+        messageBox.appendChild(icon);
+        messageBox.appendChild(message);
+        overlay.appendChild(messageBox);
+        document.body.appendChild(overlay);
+
+        // Function to check screen size and show/hide content
+        function checkScreenSize() {
+          if (window.innerWidth < 992) {
+            // Small screen - show overlay and hide main content
+            overlay.style.display = "flex";
+            document.querySelector(".main-container").style.display = "none";
+          } else {
+            // Large screen - hide overlay and show main content
+            overlay.style.display = "none";
+            document.querySelector(".main-container").style.display = "flex";
+          }
+        }
+
+        // Run screen size check when page loads
+        checkScreenSize();
+
+        // Run screen size check when window is resized
+        window.addEventListener("resize", checkScreenSize);
       });
     </script>
   </body>
